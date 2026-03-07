@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home Page</title>
+    
+    <!-- daisyui+tailwind  -->
+     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- google font -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  
+<!-- font awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<style>
+    *{
+        font-family: "Inter", sans-serif;
+    }
+</style>
 </head>
 <body>
-    home page
+<nav>
+  <div class="navbar bg-base-100 shadow-sm px-4 md:px-12"> <div class="flex-1 flex items-center gap-2"> <img src="assets/github-logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10"> <a class="text-lg md:text-xl font-bold cursor-pointer">GitHub Issues Tracker</a>
+    </div>
+
+    <div class="flex items-center ">
+     <div class="flex items-center gap-4">
+       
+      <div class="hidden md:block"> 
+         <input type="text" placeholder="Search issues..." class="input input-bordered w-full max-w-xs" />
+      </div>
+        <div class="p-3">
+            <button class="btn btn-primary">+New Issue</button>
+          </div>
+        
+      
+    </div>
+
+  </div>
+</nav>
 </body>
 </html>
