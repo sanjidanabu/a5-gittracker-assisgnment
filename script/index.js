@@ -10,7 +10,7 @@ document.getElementById("signin-btn").addEventListener("click", function(){
 
     if(userName==="admin" && pass==="admin123"){
         alert("sign in successfully");
-        window.location.assign("/home.html");
+        window.location.assign("./home.html");
     } else{
         alert("sign in failed");
         return;
