@@ -3,64 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    
+    <title>GitHub Issues Tracker</title>
     <!-- daisyui+tailwind  -->
-     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <!-- google font -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  
-<!-- font awesome -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- font awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-
-<style>
-    *{
-        font-family: "Inter", sans-serif;
-    }
-</style>
-</head>
-<body>
-<nav>
-  <div class="navbar bg-base-100 shadow-sm px-4 md:px-12"> <div class="flex-1 flex items-center gap-2"> <img src="assets/github-logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10"> <a class="text-lg md:text-xl font-bold cursor-pointer">GitHub Issues Tracker</a>
-    </div>
-
-    <div class="flex items-center ">
-     <div class="flex items-center gap-4">
-       
-      <div class="hidden md:block"> 
-         <input type="text" placeholder="Search issues..." class="input input-bordered w-full max-w-xs" />
-      </div>
-        <div class="p-3">
-            <button class="btn btn-primary">+New Issue</button>
-          </div>
+    <style>
+        *{ font-family: "Inter", sans-serif; }
+        
+        
+        .border-open { border-top: 5px solid #22c55e !important; }
+        .border-closed { border-top: 5px solid #7c3aed !important; }
+        
+        
+        .label-bug { background-color: #fee2e2; color: #ef4444; }
+        .label-help { background-color: #fef3c7; color: #f59e0b; }
+        .label-enhancement { background-color: #dcfce7; color: #10b981; }
+        
+        .priority-high { color: #ef4444; background: #fee2e2; }
+        .priority-medium { color: #f59e0b; background: #fef3c7; }
+        .priority-low { color: #6b7280; background: #f3f4f6; }
         
       
+        .btn-active-tab { background-color: #4A00FF !important; color: white !important; }
+
+        
+        .modal-badge-opened { background-color: #10b981; color: white; border-radius: 999px; padding: 2px 12px; font-size: 12px; font-weight: 600; }
+        .modal-badge-closed { background-color: #7c3aed; color: white; border-radius: 999px; padding: 2px 12px; font-size: 12px; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<nav>
+  <div class="navbar bg-base-100 shadow-sm px-4 md:px-12"> 
+    <div class="flex-1 flex items-center gap-2"> 
+        <img src="assets/github-logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10"> 
+        <a class="text-lg md:text-xl font-bold cursor-pointer">GitHub Issues Tracker</a>
     </div>
 
+    <div class="flex items-center">
+     <div class="flex items-center gap-4">
+      <div class="hidden md:block"> 
+         <input id="search-box" type="text" placeholder="Search issues..." class="input input-bordered w-full max-w-xs" />
+      </div>
+        <div class="p-3">
+            <button class="btn btn-primary  border-none text-white">+ New Issue</button>
+          </div>
+    </div>
   </div>
 </nav>
-  
 
-<div class="mt-15 max-w-5xl mx-auto">
-  <div class="bg-white p-2 rounded-lg border border-gray-200 flex flex-wrap  gap-2 mb-4 max-w-4xl shadow-sm">
-    <button class="btn btn-soft btn-primary flex-1 sm:flex-none px-8 py-2 rounded-md font-medium text-sm">
-      All
-    </button>
-    <button class="btn btn-soft btn-primary flex-1 sm:flex-none  px-6 py-2 rounded-md font-medium  ">
-      Open
-    </button>
-    <button class="btn btn-soft btn-primary flex-1 sm:flex-none px-6 py-2 rounded-md font-medium ">
-      Closed
-    </button>
+<div class="mt-10 max-w-5xl mx-auto px-4">
+  <div class="bg-white p-2 rounded-lg border border-gray-200 flex flex-wrap gap-2 mb-4 max-w-md shadow-sm">
+    <button onclick="filterIssues('all', this)" class="tab-btn btn btn-soft btn-active-tab flex-1 sm:flex-none px-8 py-2 rounded-md font-medium ">All</button>
+    <button onclick="filterIssues('open', this)" class="tab-btn btn btn-soft flex-1 sm:flex-none px-6 py-2 rounded-md font-medium">Open</button>
+    <button onclick="filterIssues('closed', this)" class="tab-btn btn btn-soft flex-1 sm:flex-none px-6 py-2 rounded-md font-medium">Closed</button>
   </div>
 
   <div class="bg-white p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row items-center justify-between max-w-4xl shadow-sm">
-    
-    <div class="flex  items-center gap-4">
+    <div class="flex items-center gap-4">
       <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100 shrink-0">
        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="25" cy="25" r="25" fill="#ECE4FF"/>
@@ -68,26 +75,32 @@
 </svg>
 
       </div>
-      
       <div>
-        <h2 class="text-base sm:text-lg font-bold text-gray-800 leading-tight">50 Issues</h2>
-        <p class="text-xs sm:text-sm text-gray-500">Track and manage your project issues</p>
+        <h2 id="total-count" class="text-lg font-bold text-gray-800 leading-tight">50 Issues</h2>
+        <p class="text-sm text-gray-500">Track and manage your project issues</p>
       </div>
     </div>
-
-    <div class="flex  gap-6 text-sm font-medium text-gray-700 ml-14 sm:ml-0">
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 bg-emerald-700 rounded-full"></span>
-        Open
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 bg-blue-700 rounded-full"></span>
-        Closed
-      </div>
+    <div class="flex gap-6 text-sm font-medium text-gray-700 mt-4 sm:mt-0">
+      <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span> Open</div>
+      <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-purple-600 rounded-full"></span> Closed</div>
     </div>
-
-  </div>
   </div>
 
+  <div id="issue-container" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-12">
+      </div>
+</div>
+
+<dialog id="issue_modal" class="modal">
+  <div class="modal-box w-11/12 max-w-2xl rounded-2xl">
+    <div id="modal-body"></div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script src="script/home.js"></script>
 </body>
 </html>
